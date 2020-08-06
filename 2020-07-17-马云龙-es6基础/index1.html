@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css" />
+</head>
+
+<body>
+  <section id="wrap">
+    <h2 class="title">百度音乐榜单</h2>
+    <ul id="list">
+      <li>
+        <input type="checkbox" />
+        <span>第一条信息</span>
+        <a href="javascript:;" class="collect">收藏</a>
+        <a href="javascript:;" class="cancelCollect">取消收藏</a>
+        <a href="javascript:;" class="remove">删除</a>
+      </li>
+
+    </ul>
+    <footer class="footer">
+      <label><input type="checkbox" id="checkAll" />全选/全不选</label>
+      <a href="javascript:;" id="remove">删除</a>
+      <input type="text" id="newInfo" />
+      <a href="javascript:;" id="add">添加</a>
+    </footer>
+  </section>
+  <script src="./index.js" type="module"></script>
+  <script type="module">
+    {
+      let data = [
+        {
+          id: 1,
+          title: "残酷月光 - 费启鸣",
+          checked: false,
+          collect: true
+        }, {
+          id: 2,
+          title: "兄弟 - 艾热",
+          checked: true,
+          collect: false
+        }, {
+          id: 3,
+          title: "毕生 - 夏增祥",
+          checked: true,
+          collect: true
+        }, {
+          id: 4,
+          title: "公子向北去 - 李春花",
+          checked: false,
+          collect: false
+        }, {
+          id: 5,
+          title: "战场 - 沙漠五子",
+          checked: true,
+          collect: false //是否收藏 true 收藏 false 没有收藏
+        }
+      ];
+        
+    //   // 数据驱动；数据优先；
+    //   function render(data) {
+    //     document.querySelector("#list").innerHTML = "";
+    //     data.forEach((item, key) => {
+    //       let li = document.createElement("li");
+    //       li.innerHTML = ` <input type="checkbox" ${item.checked ? 'checked' : ''} />
+    //     <span>${item.title}</span>
+    //     ${item.collect ? '<a href="javascript:;" class="cancelCollect">取消收藏</a>' : ' <a href="javascript:;" class="collect">收藏</a>'}
+    //     <a href="javascript:;" class="remove">删除</a>`;
+    //       document.querySelector("#list").appendChild(li);
+    //     })
+
+    //     // 判断是否全选；
+    //     let isCheckAll = data.every(item=>item.checked);
+    //     // console.log(isCheckAll);
+    //     document.querySelector("#checkAll").checked = isCheckAll;
+    //     addEvent();
+    //   }
+    //   render(data);
+
+    //   // 重新渲染之后  没有事件绑定；
+    //   function addEvent() {
+    //     let lis = document.querySelectorAll("li");
+    //     // console.log(lis);
+    //     lis.forEach((li, key) => {
+    //       // 取消收藏
+    //       let cancelCollect = li.querySelector(".cancelCollect");
+    //       cancelCollect && (cancelCollect.onclick = function () {
+    //         // console.log("点击了..");
+    //         // 数据优先；
+    //         data[key].collect = false;
+    //         // console.log(data);
+    //         // 渲染视图；
+    //         render(data);
+    //       })
+
+    //       // 收藏；
+    //       let collect = li.querySelector(".collect");
+    //       collect && (collect.onclick = function () {
+    //         data[key].collect = true;
+    //         render(data);
+    //       });
+
+    //       // 删除；
+    //       let delEle = li.querySelector(".remove");
+    //       delEle.onclick = function(){
+    //           // 么有持久化保存；
+    //           data.splice(key,1);
+    //           render(data);
+    //       }
+
+    //       // 选中/非选中状态；
+    //       let inputEle = li.querySelector("input");
+    //       inputEle.onclick = function(){
+            
+    //         // console.log(this.checked);
+    //         // 数据更改了；
+    //         data[key].checked = this.checked;
+    //         render(data);
+    //       }
+    //     })
+    //   }
+
+
+
+    //   // 全选/全不选；
+    //   document.querySelector("#checkAll").onclick = function(){
+    //       data.forEach(item=>{
+    //         item.checked = this.checked;
+    //       })
+    //       render(data);
+    //   }
+
+    //   // 删除；
+    //   document.querySelector("#remove").onclick = function(){
+    //     data =  data.filter(item=>!item.checked);
+    //       render(data);
+    //   }
+      
+    //   // 奥利给
+    //   // 添加
+    //   document.querySelector('#add').onclick = function () {
+    //     let titleInput = document.querySelector('#newInfo');
+    //     // 获取输入框输入的最新歌曲名称
+    //     let title = titleInput.value;
+    //     // 判断新添加的歌曲是否已经存在
+    //     let containsTitle = data.map(item => item.title).includes(title);
+    //     if (containsTitle) {
+    //       alert('名称重复,请重新输入！');
+    //       // 如果名称重复就自动获取输入框焦点
+    //       titleInput.focus();
+    //       return
+    //     }
+    //     // 生成一个对象 data.length + 1 按照顺序生成id
+    //     let newObj = {
+    //       id: getRandom(0, data.length + 1),
+    //       title,
+    //       checked: false,
+    //       collect: false //是否收藏 true 收藏 false 没有收藏
+    //     }
+    //     // 将新增的数组追加进原数组
+    //     data.push(newObj) 
+    //     // 将数组进行排序
+    //     let newData = data.sort(compare('id'));
+    //     render(newData);
+    //     // 每次添加后清空新增输入框
+    //     titleInput.value = '';
+    //   }
+    //   // 比较数组顺序 (prop => id 想要按照排序的字段名称)
+    //   function compare (prop) {
+    //     return function compareId(a, b) {
+    //       return a[prop] - b[prop];
+    //     }
+    //   }
+    //   // 生成一个随机整数
+    //   function getRandom (min, max) {
+    //     // 拿到data 中所有的 所有id 存为数组备用
+    //     let random = Math.floor(Math.random() * (max - min)) + min;
+    //     // 判断当前已有的id 是否包含刚生成的id
+    //     let containsId = data.map(item => item.id).includes(random);
+    //     // 根据 containsId 状态判断是否需要重新生成id  false 不需要  true 需要
+    //     random = !containsId ? random : getRandom (min, max);
+    //     return   random
+    //   }
+    }
+
+    // 作业：在老师的代码基础上完成音乐添加功能；（添加过程中 id（唯一标识符） 不要重复）；
+  </script>
+</body>
+
+</html>
