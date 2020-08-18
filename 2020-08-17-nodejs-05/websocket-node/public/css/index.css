@@ -1,0 +1,105 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+ul li {
+  list-style: none;
+}
+
+.box {
+  height: 640px;
+  width: 426px;
+}
+
+.box .ul li {
+  position: relative;
+}
+.box .name {
+  line-height: 20px;
+  font-size: 16px;
+  color: #333;
+}
+.box .content {
+  position: relative;
+  width: 60%;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+  background: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+.content .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  padding: 10px;
+}
+.content::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-right: 20px solid #fff;
+  border-bottom: 10px solid transparent;
+}
+.box .time {
+  width: 130px;
+  font-size: 12px;
+  margin: 10px auto 0 auto;
+  text-align: center;
+  color: #fff;
+  background: #ccc;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.message-box {
+  display: flex;
+  padding: 20px;
+  align-items: center;
+}
+.message-box img {
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 1px solid #666;
+}
+.message-content {
+  flex: 1;
+}
+.title-li {
+  padding: 5px 10px;
+}
+p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.timecolor {
+  color: #FFA500;
+}
