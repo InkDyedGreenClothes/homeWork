@@ -16,8 +16,6 @@ let connection = null;
     database: 'datas'
   })
 }()
-console.log(connection);
-
 
 app.use(KoaStaticCache('./static', {
   prefix: '/static',
@@ -29,10 +27,9 @@ app.use(KoaStaticCache('./static', {
 router.get('/', ctx => {
   ctx.body = '开课吧';
 })
-
+const imgPath = '/static/upload/';
 router.get('/getPhotos', async ctx => {
   const [rows, fields] = await connection.execute('SELECT * FROM `photos`');
-  let imgPath = '/static/upload/';
   let list = rows.map(item => ({
     ...item,
     imgPath
@@ -47,7 +44,14 @@ router.post('/upload', upload(), async ctx => {
   let imgName = path.substring(pathIndexof, path.length);
   
   await connection.execute(`insert into photos (img_name) values(?)`, [imgName]);
-  ctx.body = '上传成功'
+  ctx.body = {
+    success: true,
+    status: 200,
+    data: {
+      img_name: imgName,
+      imgPath
+    }
+  }
 });
 
 

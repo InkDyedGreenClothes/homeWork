@@ -35,9 +35,12 @@ function uploadFile(data) {
         url: '/upload',
         data,
         success(res) {
-            
+            // console.log(res);
             taskProgresStatusEle.innerHTML = '上传完成'
             numEle.innerHTML = ++tastNum;
+            let imgData = JSON.parse(res)
+            // 将上传后的图片显示到页面
+            imgRender(imgData.data.imgPath + imgData.data.img_name);
         },
         onprogress(ev) {
             progressEle.style.width = (ev.loaded / ev.total) * 100 + '%'
