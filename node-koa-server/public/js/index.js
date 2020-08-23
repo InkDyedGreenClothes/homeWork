@@ -14,6 +14,7 @@ let contentEle = document.querySelector('#content');
 let taskPanelEle = document.querySelector('.task_panel');
 let loginBoxEle = document.querySelector('#loginBox');
 let loginOutEle = document.querySelector('#loginOut');
+let allCloseEle = document.querySelector('.all-close');
 
 let page = {
     data: {
@@ -71,6 +72,10 @@ let page = {
             loginOutEle.style.display = 'none'
             contentEle.style.display = 'none';
             loginBoxEle.style.display = 'block';
+        }
+        // 关闭任务窗口
+        allCloseEle.onclick = function () {
+            taskPanelEle.style.display = 'none';
         }
     },
     methods: {
@@ -162,7 +167,9 @@ let page = {
                         numEle.innerHTML = this.tastNum + 1;
                         // 将上传后的图片显示到页面
                         page.methods.imgRender(imgData.data.imgPath + imgData.data.img_name);
-                        taskPanelEle.style.display = 'none';
+                        setTimeout(() => {
+                            taskPanelEle.style.display = 'none';
+                        }, 2000)
                     }
                 },
                 onprogress(ev) {

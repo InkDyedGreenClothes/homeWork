@@ -104,9 +104,10 @@ router.post('/login', KoaBody({
 })
 
 // 用户鉴权  使用jsonwebtoken
-// app.use(async (ctx, next) => {
-//     await authentication(ctx, next)
-// })
+app.use(async (ctx, next) => {
+    await authentication(ctx, next)
+    await next();
+})
 
 // 中间件对token进行验证
 app.use(async (ctx, next) => {
@@ -133,9 +134,9 @@ app.use(KoaJwt({ secret: jwtSecret, passthrough: true }).unless({
     path: [/^\/public/]
 }));
 // 鉴权设置值
-app.use(async (ctx, next) => {
-    await authentication(ctx, next)
-})
+// app.use(async (ctx, next) => {
+//     await authentication(ctx, next)
+// })
 
 // 获取用户
 router.get('/getUsers', KoaBody(), async ctx => {
@@ -213,10 +214,10 @@ async function authentication (ctx, next) {
         }
         ctx._user = user;
     // }
-    await next();
+    
 }
 app.use(router.routes())
 
-app.listen(2222, () => {
-    console.log('服务器开启成功，请访问：http://localhost:2222');
+app.listen(8080, () => {
+    console.log('服务器开启成功，请访问：http://localhost:8080/public/index.html');
 })
