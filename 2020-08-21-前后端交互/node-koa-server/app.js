@@ -9,7 +9,7 @@ const router = new KoaRouter();
 const UploadImg = require('./middlewares/upload');
 
 const { getUsers, registeredUser } = require('./server/api/users');
-const { getPhtot, uploadImg } = require('./server/api/phhtots');
+const { getPhtot, uploadImg } = require('./server/api/photos');
 
 const jwtSecret = 'myl';
 const seccessDefaultData = {
@@ -26,9 +26,6 @@ app.use(KoaStaticCache('./public', {
 }))
 
 router.get('/', async ctx => {
-    const [rs] = await getUsers();
-    // console.log(rs);
-
     ctx.body = '进来了'
 })
 
