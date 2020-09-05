@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>countDouble</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>count: {{ count }}</div>
+        <div>double：{{ double }}</div>
+        <button @click="count++">double</button>
+    </div>
+</body>
+
+<script>
+    app = new Vue({
+        el: '#app',
+        data: {
+            count: 1
+        },
+        computed: {
+            double() {
+                return this.count * 2;
+            }
+        }
+    })
+</script>
+
+</html>
