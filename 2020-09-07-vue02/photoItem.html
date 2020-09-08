@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>photoItem</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <script>
+
+    // 图片模板
+    Vue.component("PhotoItem", {
+      props: {
+        imgObj: {
+          type: Object
+        }
+      },
+      template: `<div class="photoItem">
+                  <img :src="imgObj.imgSrc" />
+                  <span> {{ imgObj.imgName }} </span>
+                </div>`
+    })
+
+
+    app = new Vue({
+      el: '#app',
+      template: `<div>
+        <PhotoItem :imgObj=imgObj></photoItem>
+        </div>`,
+      data: {
+        msg: '模板',
+        imgObj: {
+          imgSrc: 'http://5b0988e595225.cdn.sohucs.com/images/20180926/2cc09dfe0b39442198aba1a1c8939ff4.jpeg',
+          imgName: '下班了'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
