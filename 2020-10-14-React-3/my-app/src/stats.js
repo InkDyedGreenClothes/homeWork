@@ -4,10 +4,12 @@ export default class Stats extends Component {
     let { data, removeCheck, checkAll } = this.props;
     let checkNum = data.filter(item => item.done).length;
     let totalNum = data.length;
+    console.log()
     return <Fragment>
       <div className="sum">
         <label>
           <input type="checkbox"
+            checked={data.every(item => { return item.done })}
             onChange={({ target }) => {
               checkAll(target.checked)
             }}

@@ -63,6 +63,15 @@ export default class App extends Component {
       data: data.filter(item => !item.done)
     })
   }
+  editMessage = (newVal, id) => {
+    let { data } = this.state;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === id) {
+        data[i].message = newVal;
+        break;
+      }
+    }
+  }
   render() {
     let { data } = this.state;
     return (
@@ -75,6 +84,7 @@ export default class App extends Component {
           doneChange={this.doneChange}
           checkAll={this.checkAll}
           removeCheck={this.removeCheck}
+          editMessage={this.editMessage}
         />
         <Stats
           data={data}

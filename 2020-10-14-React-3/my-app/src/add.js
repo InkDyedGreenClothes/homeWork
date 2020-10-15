@@ -31,7 +31,8 @@ export default class Add extends Component {
                     let obj = {
                         id: Date.parse(new Date()),
                         name,
-                        message
+                        message,
+                        done: false
                     }
                     if (name && message) {
                         add(obj);
