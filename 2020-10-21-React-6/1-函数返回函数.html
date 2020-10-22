@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+function fn(callBack) {
+  let state = 10;
+  state = callBack(state);
+  return (cb)=>{
+    //console.log(state);
+    cb(state)
+  }
+}
+
+fn(state=>state*2)((state)=>{
+  console.log(state);
+});
+</script>  
+</body>
+</html>
