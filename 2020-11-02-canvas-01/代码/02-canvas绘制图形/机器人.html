@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机器人</title>
+    <style>
+        body{margin: 0;overflow: hidden;}
+        #canvas{background: antiquewhite;}
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById('canvas');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    //    画笔
+    const ctx = canvas.getContext('2d');
+
+    ctx.translate(100,200)
+    //   颜色
+    ctx.fillStyle='red';
+    ctx.lineWidth = 40;
+    // 绘制脸部
+    ctx.fillRect(
+        50,250,
+        400,200
+    )
+    //描边
+    ctx.strokeRect(
+        50,250,
+        400,200
+    )
+//        清理出一片面罩区域
+    ctx.clearRect(
+        50,300,
+        400,60
+    )
+    //嘴巴
+    ctx.beginPath();
+    ctx.moveTo(150,400)
+    // ctx.lineTo(250,500)
+    // ctx.lineTo(350,400)
+    ctx.lineWidth = 10;
+    ctx.quadraticCurveTo(
+        190,300,
+        390,430,
+    )
+    // ctx.lineTo(350,400)
+    ctx.stroke()
+    //眼睛
+    ctx.beginPath();
+    ctx.arc(
+        150,330,
+        20,
+        0,
+        Math.PI * 2
+    )
+    ctx.moveTo(350-20, 340)
+    ctx.arc(
+        350,340,
+        20,Math.PI,0
+    )
+    //改变眼睛颜色
+    ctx.fillStyle= 'pink';
+    ctx.fill()
+    //天线
+    ctx.beginPath()
+    ctx.moveTo(50,50)
+    ctx.bezierCurveTo(
+        150,50,
+        150,250,
+        250,250
+    );
+    ctx.moveTo(450,50)
+    ctx.bezierCurveTo(
+        350,50,
+        350,250,250,250
+    )
+    ctx.lineWidth = 30;
+    //将天线变为虚线
+    ctx.setLineDash([30])
+    ctx.stroke()
+
+
+</script>
+</html>
