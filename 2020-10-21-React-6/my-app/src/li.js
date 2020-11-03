@@ -15,10 +15,8 @@ function Li(props) {
     return (
         <li
             className={edit ? 'editing' : ''}
-            onDoubleClick={() => {
-                setEdit(true)
-            }}>
-            <div className="todo">
+        >
+            <div className={selected ? 'todo done' : 'todo'}>
                 <div className="display">
                     <input
                         className="check"
@@ -31,7 +29,10 @@ function Li(props) {
                                 selected: target.checked
                             })
                         }} />
-                    <div className="todo-content">{message}</div>
+                    <div className="todo-content"
+                        onDoubleClick={() => {
+                            setEdit(true)
+                        }}>{message}</div>
                     <span className="todo-destroy" onClick={() => {
                         dispatch({
                             type: "DELETE",

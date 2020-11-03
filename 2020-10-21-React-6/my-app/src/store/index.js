@@ -3,11 +3,11 @@ import { createStore } from 'redux';
 function reducer(state = {
     data: [{
         id: 0,
-        message: "真困，想睡觉，不想学了",
+        message: "我是第一条",
         selected: false
     }, {
         id: 1,
-        message: "就是就是不学了",
+        message: "我是第二条",
         selected: true
     }]
 }, action) {
