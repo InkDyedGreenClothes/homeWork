@@ -20,7 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb9bccc-8f92-406e-a96f-333e5f1c6351" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/代码/02-canvas绘制图形/机器人.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/代码/02-canvas绘制图形/机器人.html" beforeDir="false" afterPath="$PROJECT_DIR$/代码/02-canvas绘制图形/机器人.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +64,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604393624357</updated>
-      <workItem from="1604393625767" duration="2898000" />
+      <workItem from="1604393625767" duration="4753000" />
     </task>
     <servers />
   </component>
