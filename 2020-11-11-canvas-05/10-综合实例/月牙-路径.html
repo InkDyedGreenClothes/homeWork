@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>月牙-路径</title>
+    <style>
+        html{height: 100%;overflow: hidden}
+        body{height: 100%;margin: 0;}
+        #canvas{
+            background:#000;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    const canvas=document.getElementById('canvas');
+    //canvas充满窗口
+    const [w,h]=[window.innerWidth,window.innerHeight];
+    canvas.width=w;
+    canvas.height=h;
+    //画笔
+    const  ctx=canvas.getContext('2d');
+
+    /*Moon月亮
+    * quarter 1/4圆
+    * half 1/2圆
+    * defAttr 默认属性
+    * */
+    class Moon{
+        static quarter=Math.PI/2;
+        static half=Math.PI;
+        static defAttr=()=>({
+            position:{x:0,y:0},
+            r:0,
+            points:[],
+            xRat:1,
+            sAng:0,
+            eAng:0,
+            inter:0,
+            segs:24,
+            fillStyle:'#fff4d5'
+        })
+        constructor(attr){
+            const curAttr=Object.assign(Moon.defAttr(),attr);
+            Object.assign(this,curAttr);
+        }
+        get inter(){
+            return this._inter;
+        }
+        set inter(val){
+            const {mask,position,r}=this;
+            const {quarter}=Moon;
+            this._inter=val;
+            const n=val-0.5;
+            const ratio=n/0.5;
+            if(n<0){
+                this.sAng=-quarter;
+                this.eAng=quarter;
+                const xr=2*r*ratio+r;
+                this.xRat=xr/r;
+            }else{
+                this.sAng=quarter;
+                this.eAng=-quarter;
+                const xr=2*r*ratio-r;
+                this.xRat=(1-xr)/r;
+            }
+        }
+        get segs(){
+            return this._segs;
+        }
+        set segs(val){
+            const {xRat,r,eAng}=this;
+            const {half}=Moon;
+            this._segs=val;
+            this.points=[];
+            for(let i=1;i<val;i++){
+                const angle=eAng+(i/val)*half;
+                const [x,y]=[
+                    Math.cos(angle)*r*xRat,
+                    Math.sin(angle)*r
+                ]
+                this.points.push({x,y});
+            }
+        }
+        draw(ctx){
+            const {quarter}=Moon;
+            const {position:{x,y},r,points,sAng,eAng,fillStyle}=this;
+            ctx.save();
+            ctx.translate(x,y);
+
+            ctx.beginPath();
+            ctx.shadowColor=fillStyle;
+            ctx.shadowBlur=60;
+            ctx.fillStyle=fillStyle;
+            //圆弧
+            ctx.arc(0,0,r,sAng,eAng);
+            //椭圆弧
+            points.forEach(({x,y})=>{
+                ctx.lineTo(x,y);
+            })
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    //基点
+    const c={x:w/2,y:h*0.6};
+    //半径
+    const r=(w/2)*0.8;
+    //总数
+    const n=310;
+    let fm=0;
+
+    !(function render(){
+        fm++;
+        if(fm===n){
+            fm=0;
+        }
+        const inter=fm/n;
+        const angle=-Math.PI+Math.PI*inter;
+        const position={
+            x:c.x+Math.cos(angle)*r,
+            y:c.y+Math.sin(angle)*r*(h/w),
+        }
+        const moon=new Moon({ position,r:70,inter});
+        ctx.clearRect(0,0,w,h);
+        moon.draw(ctx);
+        requestAnimationFrame(render);
+    })()
+
+
+
+</script>
+</body>
+</html>

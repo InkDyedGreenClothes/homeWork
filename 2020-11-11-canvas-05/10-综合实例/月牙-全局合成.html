@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>合成</title>
+    <style>
+        html{height: 100%;overflow: hidden}
+        body{height: 100%;margin: 0;}
+        #canvas{
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    const canvas=document.getElementById('canvas');
+    //canvas充满窗口
+    const [w,h]=[window.innerWidth,window.innerHeight];
+    canvas.width=w;
+    canvas.height=h;
+    //画笔
+    const  ctx=canvas.getContext('2d');
+
+    /*Moon月亮
+    * position 位置
+    * r 半径
+    * globalCompositeOperation 全局合成
+    * inter 插值
+    * */
+    class Moon{
+        constructor({position={x:0,y:0},r=0,inter}){
+            this.position=position;
+            this.r=r;
+            this.globalCompositeOperation='destination-out';
+            this.inter=inter;
+        }
+        get inter(){
+            return this._inter;
+        }
+        set inter(val){
+            const {r}=this;
+            this._inter=val;
+            const n=this.inter-0.5;
+            const abs=Math.abs(n);
+            if(abs<0.25){
+                this.ratio=1-abs/0.25;
+                this.rectX=n>0?-r:0;
+                this.globalCompositeOperation='source-in';
+            }else{
+                this.ratio=(abs-0.25)/0.25;
+                this.rectX=n>0?1:-r-1;
+                this.globalCompositeOperation='source-out';
+            }
+        } 
+        draw(ctx){
+            const {position:{x,y},r,ratio,rectX}=this;
+            ctx.save();
+                ctx.translate(x,y);
+                ctx.lineWidth=3;
+                /*1.遮罩=椭圆+矩形*/
+                //圆
+                ctx.save()
+                    //将正圆压成椭圆
+                    ctx.scale(ratio,1);
+                    ctx.beginPath();
+                    ctx.arc(0,0,r,0,Math.PI*2);
+                    ctx.stroke()
+                    ctx.fill();
+                ctx.restore();
+                //矩形
+                ctx.fillRect(rectX,-r,r,r*2);
+
+                /*2.合成*/
+                ctx.globalCompositeOperation=this.globalCompositeOperation;
+
+                /*3.满月*/
+                ctx.beginPath();
+                ctx.fillStyle='rgba(0,255,0,0.5)';
+                // ctx.fillStyle='#00acec';
+                ctx.arc(0,0,r,0,Math.PI*2);
+                ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    //基点
+    const c={x:w/2,y:h*0.6};
+    //半径
+    const r=(w/2)*0.8;
+    //总数
+    const n=310;
+
+    let fm=150;
+
+    !(function render(){
+        fm++;
+        if(fm===n){
+            fm=0;
+        }
+        //比值
+        const inter=fm/n;
+
+        const angle=-Math.PI+Math.PI*inter;
+        const position={
+            x:c.x+Math.cos(angle)*r,
+            y:c.y+Math.sin(angle)*r*(h/w),
+        }
+        const moon=new Moon({ position,r:70,inter});
+        ctx.clearRect(0,0,w,h);
+        moon.draw(ctx);
+        requestAnimationFrame(render);
+    })()
+
+
+
+</script>
+</body>
+</html>
